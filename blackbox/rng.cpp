@@ -400,4 +400,4 @@ namespace BLACKBOX
             }
         } // namespace X917
     }     // namespace rng
-} // namespace BLACKBOX
+} // namespace BLACKBOXj
