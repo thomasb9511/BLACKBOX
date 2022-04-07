@@ -1,12 +1,10 @@
-#include "transform.h"
-
 #include <iostream>
 #include <string>
 
 #include <cryptopp/cryptlib.h>
 #include <cryptopp/hex.h>
 
-#include "BLACKBOX.h"
+#include "transform.h"
 
 namespace BLACKBOX
 {
@@ -17,7 +15,7 @@ namespace BLACKBOX
             std::string to(std::string& input)
             {
                 const CryptoPP::byte* pbData   = (CryptoPP::byte*)input.data();
-                unsigned int          nDataLen = input.length();
+                const unsigned int    nDataLen = input.length();
 
                 std::string output;
 
@@ -60,7 +58,7 @@ namespace BLACKBOX
             std::string from(std::string& input)
             {
                 const CryptoPP::byte* pbData   = (CryptoPP::byte*)input.data();
-                unsigned int          nDataLen = input.length();
+                const unsigned int    nDataLen = input.length();
 
                 std::string output;
 
@@ -148,15 +146,15 @@ namespace BLACKBOX
         {
             std::string xo(std::string& value, std::string& key)
             {
-                std::string       retval(value);
-                long unsigned int klen = key.length();
-                long unsigned int vlen = value.length();
-                unsigned long int k    = 0;
-                unsigned long int v    = 0;
+                std::string             retval(value);
+                const long unsigned int klen = key.length();
+                const long unsigned int vlen = value.length();
+                unsigned long int       k    = 0;
+                unsigned long int       v    = 0;
                 for (; v < vlen; v++)
                 {
                     retval[v] = value[v] ^ key[k];
-                    k         = (++k < klen ? k : 0);
+                    k         = ++k < klen ? k : 0;
                 }
                 return retval;
             }
@@ -193,9 +191,9 @@ namespace BLACKBOX
             {
                 for (size_t i = 0; i < in.size(); ++i)
                 {
-                    n = ((~n * (i + n)) + 1) % 8;
+                    n = (~n * (i + n) + 1) % 8;
 
-                    in[i] = (in[i] << n) | (in[i] >> (8 - n));
+                    in[i] = in[i] << n | in[i] >> 8 - n;
                 }
             }
         } // namespace logical

@@ -1,5 +1,3 @@
-#include "cipher.h"
-
 #include <assert.h>
 #include <iostream>
 #include <string>
@@ -39,7 +37,7 @@
 #include <cryptopp/twofish.h>
 #include <cryptopp/xts.h>
 
-#include "BLACKBOX.h"
+#include "cipher.h"
 
 namespace BLACKBOX
 {

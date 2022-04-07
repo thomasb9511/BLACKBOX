@@ -1,6 +1,3 @@
-// test.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 
 #include <cryptopp/3way.h>
@@ -10,10 +7,8 @@
 #include <cryptopp/camellia.h>
 #include <cryptopp/cast.h>
 #include <cryptopp/cham.h>
-#include <cryptopp/cryptlib.h>
 #include <cryptopp/des.h>
 #include <cryptopp/files.h>
-#include <cryptopp/filters.h>
 #include <cryptopp/gost.h>
 #include <cryptopp/hight.h>
 #include <cryptopp/idea.h>
@@ -43,9 +38,9 @@
 template <typename T>
 void c()
 {
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -62,9 +57,9 @@ void c()
 template <typename T>
 void b()
 {
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -84,9 +79,9 @@ void a()
     if (T::BLOCKSIZE != 16)
         return;
 
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH * 2, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH * 2, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -103,9 +98,9 @@ void a()
 template <typename T>
 void d()
 {
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -122,9 +117,9 @@ void d()
 template <typename T>
 void e()
 {
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -141,9 +136,9 @@ void e()
 template <typename T>
 void f()
 {
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -163,9 +158,9 @@ void g()
     if (T::BLOCKSIZE != 16)
         return;
 
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
@@ -182,9 +177,9 @@ void g()
 template <typename T>
 void h()
 {
-    BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
-    BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
-    BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
+    const BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
+    const BLACKBOX::secure_string iv(T::BLOCKSIZE, 0x55);
+    const BLACKBOX::secure_string str(T::BLOCKSIZE + 8, 0xFF);
 
     CryptoPP::SecByteBlock aes_key(reinterpret_cast<const CryptoPP::byte*>(key.data()), key.size());
     CryptoPP::SecByteBlock aes_iv(reinterpret_cast<const CryptoPP::byte*>(iv.data()), iv.size());
