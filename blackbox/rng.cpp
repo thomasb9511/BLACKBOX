@@ -1,5 +1,3 @@
-#include "rng.h"
-
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -14,6 +12,7 @@
 #include <cryptopp/rdrand.h>
 
 #include "BLACKBOX.h"
+#include "rng.h"
 
 namespace BLACKBOX
 {
@@ -109,7 +108,7 @@ namespace BLACKBOX
 
             std::stringstream buf;
 
-            buf << "0x" << std::setfill('0') << std::setw((bytes * 2) + 1) << temp;
+            buf << "0x" << std::setfill('0') << std::setw(bytes * 2 + 1) << temp;
 
             std::string str(buf.str());
 
@@ -120,10 +119,8 @@ namespace BLACKBOX
 
         sympack rand_sympack()
         {
-            CryptoPP::SecByteBlock key(CryptoPP::AES::DEFAULT_KEYLENGTH), iv(CryptoPP::AES::BLOCKSIZE);
-
-            key = randblock(CryptoPP::AES::DEFAULT_KEYLENGTH);
-            iv  = randblock(CryptoPP::AES::BLOCKSIZE);
+            const CryptoPP::SecByteBlock key = randblock(CryptoPP::AES::DEFAULT_KEYLENGTH);
+            const CryptoPP::SecByteBlock iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
             sympack a = {key, iv};
 
@@ -158,13 +155,13 @@ namespace BLACKBOX
 
             std::string rdprime(unsigned int bytes)
             {
-                int size8 = bytes * 8;
+                const int size8 = bytes * 8;
 
                 CryptoPP::RDRAND prng;
 
                 CryptoPP::Integer x;
 
-                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                const CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
                     "RandomNumberType", CryptoPP::Integer::PRIME);
 
                 x.GenerateRandom(prng, params);
@@ -173,11 +170,11 @@ namespace BLACKBOX
 
                 tempbuf << std::hex << std::uppercase << x << std::dec;
 
-                std::string temp(tempbuf.str());
+                const std::string temp(tempbuf.str());
 
                 std::stringstream buf;
 
-                buf << "0x" << std::setfill('0') << std::setw((bytes * 2) + 1) << temp;
+                buf << "0x" << std::setfill('0') << std::setw(bytes * 2 + 1) << temp;
 
                 std::string str(buf.str());
 
@@ -188,10 +185,8 @@ namespace BLACKBOX
 
             sympack rand_sympack()
             {
-                CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), iv(CryptoPP::AES::BLOCKSIZE);
-
-                key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
-                iv  = randblock(CryptoPP::AES::BLOCKSIZE);
+                const CryptoPP::SecByteBlock key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
+                const CryptoPP::SecByteBlock iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
                 return {key, iv};
             }
@@ -225,13 +220,13 @@ namespace BLACKBOX
 
             std::string rdprime(unsigned int bytes)
             {
-                int size8 = bytes * 8;
+                const int size8 = bytes * 8;
 
                 CryptoPP::RDSEED prng;
 
                 CryptoPP::Integer x;
 
-                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                const CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
                     "RandomNumberType", CryptoPP::Integer::PRIME);
 
                 x.GenerateRandom(prng, params);
@@ -240,11 +235,11 @@ namespace BLACKBOX
 
                 tempbuf << std::hex << std::uppercase << x << std::dec;
 
-                std::string temp(tempbuf.str());
+                const std::string temp(tempbuf.str());
 
                 std::stringstream buf;
 
-                buf << "0x" << std::setfill('0') << std::setw((bytes * 2) + 1) << temp;
+                buf << "0x" << std::setfill('0') << std::setw(bytes * 2 + 1) << temp;
 
                 std::string str(buf.str());
 
@@ -255,10 +250,8 @@ namespace BLACKBOX
 
             sympack rand_sympack()
             {
-                CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), iv(CryptoPP::AES::BLOCKSIZE);
-
-                key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
-                iv  = randblock(CryptoPP::AES::BLOCKSIZE);
+                const CryptoPP::SecByteBlock key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
+                const CryptoPP::SecByteBlock iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
                 return {key, iv};
             }
@@ -311,7 +304,7 @@ namespace BLACKBOX
 
                 std::stringstream buf;
 
-                buf << "0x" << std::setfill('0') << std::setw((bytes * 2) + 1) << temp;
+                buf << "0x" << std::setfill('0') << std::setw(bytes * 2 + 1) << temp;
 
                 std::string str(buf.str());
 
@@ -322,10 +315,8 @@ namespace BLACKBOX
 
             sympack rand_sympack()
             {
-                CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), iv(CryptoPP::AES::BLOCKSIZE);
-
-                key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
-                iv  = randblock(CryptoPP::AES::BLOCKSIZE);
+                const CryptoPP::SecByteBlock key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
+                const CryptoPP::SecByteBlock iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
                 return {key, iv};
             }
@@ -378,7 +369,7 @@ namespace BLACKBOX
 
                 std::stringstream buf;
 
-                buf << "0x" << std::setfill('0') << std::setw((bytes * 2) + 1) << temp;
+                buf << "0x" << std::setfill('0') << std::setw(bytes * 2 + 1) << temp;
 
                 std::string str(buf.str());
 
@@ -389,10 +380,8 @@ namespace BLACKBOX
 
             sympack rand_sympack()
             {
-                CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), iv(CryptoPP::AES::BLOCKSIZE);
-
-                key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
-                iv  = randblock(CryptoPP::AES::BLOCKSIZE);
+                const CryptoPP::SecByteBlock key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
+                const CryptoPP::SecByteBlock iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
                 return {key, iv};
             }

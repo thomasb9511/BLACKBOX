@@ -1,11 +1,8 @@
 #include <iostream>
-#include <string.h>
 
 #include <cryptopp/blake2.h>
-#include <cryptopp/cryptlib.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/hkdf.h>
-#include <cryptopp/hmac.h>
 #include <cryptopp/keccak.h>
 #include <cryptopp/secblock.h>
 #include <cryptopp/sha3.h>
@@ -35,7 +32,7 @@ namespace BLACKBOX
 
             std::cout << "\n";
 
-            CryptoPP::SecByteBlock pss((const unsigned char*)(pwd.data()), pwd.size());
+            CryptoPP::SecByteBlock pss((const unsigned char*)pwd.data(), pwd.size());
 
             CryptoPP::SecByteBlock h_1 = hash::hash<T>(pss);
             CryptoPP::SecByteBlock h_2 = hash::hash<F>(pss);
