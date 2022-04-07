@@ -15,7 +15,7 @@ namespace BLACKBOX
         {
             std::string to(std::string& input)
             {
-                CryptoPP::byte const* pbData   = (CryptoPP::byte*)input.data();
+                const CryptoPP::byte* pbData   = (CryptoPP::byte*)input.data();
                 unsigned int          nDataLen = input.length();
 
                 std::string output;
@@ -50,7 +50,7 @@ namespace BLACKBOX
 
             std::string from(std::string& input)
             {
-                CryptoPP::byte const* pbData   = (CryptoPP::byte*)input.data();
+                const CryptoPP::byte* pbData   = (CryptoPP::byte*)input.data();
                 unsigned int          nDataLen = input.length();
 
                 std::string output;
@@ -156,9 +156,7 @@ namespace BLACKBOX
             {
                 CryptoPP::SecByteBlock key = a;
 
-                for (size_t i = 0; i < key.size(); i++) {
-                    key[i] = a[i] ^ b[i];
-                }
+                for (size_t i = 0; i < key.size(); i++) { key[i] = a[i] ^ b[i]; }
 
                 return key;
             }
@@ -173,4 +171,4 @@ namespace BLACKBOX
             }
         } // namespace logical
     }     // namespace transform
-} // namespace BLACKBOX
+}         // namespace BLACKBOX

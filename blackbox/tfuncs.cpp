@@ -23,7 +23,7 @@ namespace BLACKBOX
         CryptoPP::SecByteBlock password;
 
         {
-            BLACKBOX::secure_string pwd;
+            secure_string pwd;
 
             std::cout << "Please enter parameter " << bit << ":";
 
@@ -45,9 +45,9 @@ namespace BLACKBOX
             password = transform::logical::xo(h_1, h_2);
         }
 
-        std::string salt   = bit + "1234567890 - Derivation string.";
+        std::string salt   = bit + "1234567890 - Salt string.";
         std::string deriv  = bit + "ABCDEFGHIJ - Derivation string.";
-        std::string salt2  = bit + "JIHGFEDCBA - Derivation string.";
+        std::string salt2  = bit + "JIHGFEDCBA - Salt string.";
         std::string deriv2 = bit + "0987654321 - Derivation string.";
 
         CryptoPP::SecByteBlock past = hash::hkdf<T>(password, salt, deriv);

@@ -30,4 +30,4 @@ namespace BLACKBOX
             void rotate_(CryptoPP::SecByteBlock& in, unsigned int n);
         } // namespace logical
     }     // namespace transform
-} // namespace BLACKBOX
+}         // namespace BLACKBOX

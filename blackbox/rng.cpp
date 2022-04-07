@@ -22,8 +22,8 @@ namespace BLACKBOX
         CryptoPP::SecByteBlock randblock(const int bytes)
         {
             CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), seed(CryptoPP::AES::BLOCKSIZE);
-            CryptoPP::OS_GenerateRandomBlock(false, key, key.size());
-            CryptoPP::OS_GenerateRandomBlock(false, seed, seed.size());
+            OS_GenerateRandomBlock(false, key, key.size());
+            OS_GenerateRandomBlock(false, seed, seed.size());
             CryptoPP::X917RNG xAES(
                 new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH),
                 seed, NULLPTR);
@@ -50,8 +50,8 @@ namespace BLACKBOX
         std::string randstrng(const int len)
         {
             CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), seed(CryptoPP::AES::BLOCKSIZE);
-            CryptoPP::OS_GenerateRandomBlock(false, key, key.size());
-            CryptoPP::OS_GenerateRandomBlock(false, seed, seed.size());
+            OS_GenerateRandomBlock(false, key, key.size());
+            OS_GenerateRandomBlock(false, seed, seed.size());
             CryptoPP::X917RNG xAES(
                 new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH),
                 seed, NULLPTR);
@@ -83,8 +83,8 @@ namespace BLACKBOX
             int size8 = bytes * 8;
 
             CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), seed(CryptoPP::AES::BLOCKSIZE);
-            CryptoPP::OS_GenerateRandomBlock(false, key, key.size());
-            CryptoPP::OS_GenerateRandomBlock(false, seed, seed.size());
+            OS_GenerateRandomBlock(false, key, key.size());
+            OS_GenerateRandomBlock(false, seed, seed.size());
             CryptoPP::X917RNG xAES(
                 new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH),
                 seed, NULLPTR);
@@ -131,7 +131,7 @@ namespace BLACKBOX
             key = randblock(CryptoPP::AES::DEFAULT_KEYLENGTH);
             iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-            sympack a = { key, iv };
+            sympack a = {key, iv};
 
             return a;
         }
@@ -198,7 +198,7 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace RDRAND
 
@@ -264,7 +264,7 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace RDSEED
 
@@ -330,7 +330,7 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace X931
 
@@ -396,8 +396,8 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace X917
     }     // namespace rng
-} // namespace BLACKBOXj
+}         // namespace BLACKBOXj

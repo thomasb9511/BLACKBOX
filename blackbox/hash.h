@@ -14,7 +14,7 @@ namespace BLACKBOX
             CryptoPP::StringSource ss2(
                 input, true,
                 new CryptoPP::HashFilter(hmac, new CryptoPP::StringSink(mac)) // HashFilter
-            );                                                                // StringSource
+                );                                                            // StringSource
 
             encoded.clear();
 
@@ -24,13 +24,13 @@ namespace BLACKBOX
         template<typename F>
         std::string hash(std::string& input)
         {
-            CryptoPP::byte const* pbData   = (CryptoPP::byte*)input.data();
+            const CryptoPP::byte* pbData   = (CryptoPP::byte*)input.data();
             size_t                nDataLen = input.length();
             CryptoPP::byte        abDigest[F::DIGESTSIZE];
 
             F().CalculateDigest(abDigest, pbData, nDataLen);
 
-            return std::string((char*)abDigest, F::DIGESTSIZE);
+            return std::string(static_cast<char*>(abDigest), F::DIGESTSIZE);
         }
 
         template<typename F>
@@ -59,11 +59,11 @@ namespace BLACKBOX
         template<typename F>
         CryptoPP::SecByteBlock hkdf(CryptoPP::SecByteBlock& password, std::string& salt, std::string& deriv)
         {
-            CryptoPP::byte const* salt_((const CryptoPP::byte*)salt.data());
-            size_t                slen = strlen((const char*)salt_);
+            auto   salt_((const CryptoPP::byte*)salt.data());
+            size_t slen = strlen((const char*)salt_);
 
-            CryptoPP::byte const* deriv_((const CryptoPP::byte*)deriv.data());
-            size_t                ilen = strlen((const char*)deriv_);
+            auto   deriv_((const CryptoPP::byte*)deriv.data());
+            size_t ilen = strlen((const char*)deriv_);
 
             CryptoPP::SecByteBlock abDigest(F::DIGESTSIZE);
 
@@ -74,4 +74,4 @@ namespace BLACKBOX
             return abDigest; // @suppress("Ambiguous problem") // @suppress("Symbol is not resolved")
         }
     } // namespace hash
-} // namespace BLACKBOX
+}     // namespace BLACKBOX
