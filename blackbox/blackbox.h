@@ -4,7 +4,7 @@ void SetStdinEcho(bool enable);
 
 namespace BLACKBOX
 {
-    const std::string VERSION = "1.0", GUID = "83EEB821-A3CC-47B3-B330-275473178BB1";
+    const std::string VERSION = "1.01", GUID = "83EEB821-A3CC-47B3-B330-275473178BB1";
 
     using secure_string = std::basic_string<char, std::char_traits<char>, CryptoPP::AllocatorWithCleanup<char>>;
 
