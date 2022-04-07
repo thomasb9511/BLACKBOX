@@ -4,24 +4,23 @@ namespace BLACKBOX
 {
     namespace hash
     {
-        template<typename F>
+        template <typename F>
         std::string hmac(std::string& input, CryptoPP::SecByteBlock& key)
         {
             std::string mac, encoded;
 
             CryptoPP::HMAC<F> hmac(key, key.size());
 
-            CryptoPP::StringSource ss2(
-                input, true,
-                new CryptoPP::HashFilter(hmac, new CryptoPP::StringSink(mac)) // HashFilter
-                );                                                            // StringSource
+            CryptoPP::StringSource ss2(input, true,
+                                       new CryptoPP::HashFilter(hmac, new CryptoPP::StringSink(mac)) // HashFilter
+                );                                                                                   // StringSource
 
             encoded.clear();
 
             return mac;
         }
 
-        template<typename F>
+        template <typename F>
         std::string hash(std::string& input)
         {
             const CryptoPP::byte* pbData   = (CryptoPP::byte*)input.data();
@@ -33,7 +32,7 @@ namespace BLACKBOX
             return std::string(static_cast<char*>(abDigest), F::DIGESTSIZE);
         }
 
-        template<typename F>
+        template <typename F>
         CryptoPP::SecByteBlock hash(CryptoPP::SecByteBlock& input)
         {
             CryptoPP::SecByteBlock abDigest(F::DIGESTSIZE);
@@ -43,7 +42,7 @@ namespace BLACKBOX
             return abDigest;
         }
 
-        template<typename F>
+        template <typename F>
         CryptoPP::SecByteBlock hmac(CryptoPP::SecByteBlock& input, CryptoPP::SecByteBlock& key)
         {
             CryptoPP::HMAC<F> hmac(key, key.size());
@@ -56,7 +55,7 @@ namespace BLACKBOX
             return d;
         }
 
-        template<typename F>
+        template <typename F>
         CryptoPP::SecByteBlock hkdf(CryptoPP::SecByteBlock& password, std::string& salt, std::string& deriv)
         {
             auto   salt_((const CryptoPP::byte*)salt.data());

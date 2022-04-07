@@ -1,3 +1,5 @@
+#include "transform.h"
+
 #include <iostream>
 #include <string>
 
@@ -5,7 +7,6 @@
 #include <cryptopp/hex.h>
 
 #include "BLACKBOX.h"
-#include "transform.h"
 
 namespace BLACKBOX
 {
@@ -20,11 +21,15 @@ namespace BLACKBOX
 
                 std::string output;
 
-                try {
-                    CryptoPP::HexEncoder hex(new CryptoPP::StringSink(output)); // @suppress("Abstract class cannot be instantiated")
+                try
+                {
+                    CryptoPP::HexEncoder hex(new CryptoPP::StringSink(output));
+                    // @suppress("Abstract class cannot be instantiated")
                     hex.Put(pbData, nDataLen);
                     hex.MessageEnd();
-                } catch (CryptoPP::Exception& e) {
+                }
+                catch (CryptoPP::Exception& e)
+                {
                     std::cerr << e.what() << std::endl;
                     exit(1);
                 }
@@ -36,11 +41,15 @@ namespace BLACKBOX
             {
                 std::string output;
 
-                try {
-                    CryptoPP::HexEncoder hex(new CryptoPP::StringSink(output)); // @suppress("Abstract class cannot be instantiated")
+                try
+                {
+                    CryptoPP::HexEncoder hex(new CryptoPP::StringSink(output));
+                    // @suppress("Abstract class cannot be instantiated")
                     hex.Put(input, input.size());
                     hex.MessageEnd();
-                } catch (CryptoPP::Exception& e) {
+                }
+                catch (CryptoPP::Exception& e)
+                {
                     std::cerr << e.what() << std::endl;
                     exit(1);
                 }
@@ -55,11 +64,15 @@ namespace BLACKBOX
 
                 std::string output;
 
-                try {
-                    CryptoPP::HexDecoder hex(new CryptoPP::StringSink(output)); // @suppress("Abstract class cannot be instantiated")
+                try
+                {
+                    CryptoPP::HexDecoder hex(new CryptoPP::StringSink(output));
+                    // @suppress("Abstract class cannot be instantiated")
                     hex.Put(pbData, nDataLen);
                     hex.MessageEnd();
-                } catch (CryptoPP::Exception& e) {
+                }
+                catch (CryptoPP::Exception& e)
+                {
                     std::cerr << e.what() << std::endl;
                     exit(1);
                 }
@@ -71,11 +84,15 @@ namespace BLACKBOX
             {
                 std::string output;
 
-                try {
-                    CryptoPP::HexDecoder hex(new CryptoPP::StringSink(output)); // @suppress("Abstract class cannot be instantiated")
+                try
+                {
+                    CryptoPP::HexDecoder hex(new CryptoPP::StringSink(output));
+                    // @suppress("Abstract class cannot be instantiated")
                     hex.Put(input, input.size());
                     hex.MessageEnd();
-                } catch (CryptoPP::Exception& e) {
+                }
+                catch (CryptoPP::Exception& e)
+                {
                     std::cerr << e.what() << std::endl;
                     exit(1);
                 }
@@ -89,11 +106,15 @@ namespace BLACKBOX
                 {
                     CryptoPP::SecByteBlock output;
 
-                    try {
-                        CryptoPP::HexEncoder hex(new CryptoPP::ArraySink(output, input.size() * 2)); // @suppress("Abstract class cannot be instantiated")
+                    try
+                    {
+                        CryptoPP::HexEncoder hex(new CryptoPP::ArraySink(output, input.size() * 2));
+                        // @suppress("Abstract class cannot be instantiated")
                         hex.Put(input, input.size());
                         hex.MessageEnd();
-                    } catch (CryptoPP::Exception& e) {
+                    }
+                    catch (CryptoPP::Exception& e)
+                    {
                         std::cerr << e.what() << std::endl;
                         exit(1);
                     }
@@ -105,11 +126,15 @@ namespace BLACKBOX
                 {
                     CryptoPP::SecByteBlock output;
 
-                    try {
-                        CryptoPP::HexDecoder hex(new CryptoPP::ArraySink(output, input.size() / 2)); // @suppress("Abstract class cannot be instantiated")
+                    try
+                    {
+                        CryptoPP::HexDecoder hex(new CryptoPP::ArraySink(output, input.size() / 2));
+                        // @suppress("Abstract class cannot be instantiated")
                         hex.Put(input, input.size());
                         hex.MessageEnd();
-                    } catch (CryptoPP::Exception& e) {
+                    }
+                    catch (CryptoPP::Exception& e)
+                    {
                         std::cerr << e.what() << std::endl;
                         exit(1);
                     }
@@ -128,7 +153,8 @@ namespace BLACKBOX
                 long unsigned int vlen = value.length();
                 unsigned long int k    = 0;
                 unsigned long int v    = 0;
-                for (; v < vlen; v++) {
+                for (; v < vlen; v++)
+                {
                     retval[v] = value[v] ^ key[k];
                     k         = (++k < klen ? k : 0);
                 }
@@ -144,7 +170,8 @@ namespace BLACKBOX
 
                 CryptoPP::SecByteBlock interleaved(max_len * 2);
 
-                for (std::size_t i = 0; i < max_len; ++i) {
+                for (std::size_t i = 0; i < max_len; ++i)
+                {
                     interleaved[i * 2]     = a[i % len_a];
                     interleaved[i * 2 + 1] = b[i % len_b];
                 }
@@ -156,14 +183,16 @@ namespace BLACKBOX
             {
                 CryptoPP::SecByteBlock key = a;
 
-                for (size_t i = 0; i < key.size(); i++) { key[i] = a[i] ^ b[i]; }
+                for (size_t i = 0; i < key.size(); i++)
+                    key[i]    = a[i] ^ b[i];
 
                 return key;
             }
 
             void rotate_(CryptoPP::SecByteBlock& in, unsigned int n)
             {
-                for (size_t i = 0; i < in.size(); ++i) {
+                for (size_t i = 0; i < in.size(); ++i)
+                {
                     n = ((~n * (i + n)) + 1) % 8;
 
                     in[i] = (in[i] << n) | (in[i] >> (8 - n));

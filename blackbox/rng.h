@@ -4,14 +4,16 @@ namespace BLACKBOX
 {
     namespace rng
     {
-        class CombinedRNG: public CryptoPP::RandomNumberGenerator {
+        class CombinedRNG : public CryptoPP::RandomNumberGenerator
+        {
         public:
-            CombinedRNG(RandomNumberGenerator& rng1,
-                        RandomNumberGenerator& rng2)
-                : m_rng1(rng1)
-                  , m_rng2(rng2) { }
+            CombinedRNG(RandomNumberGenerator& rng1, RandomNumberGenerator& rng2) :
+                m_rng1(rng1), m_rng2(rng2) { }
 
-            bool CanIncorporateEntropy() const override { return m_rng1.CanIncorporateEntropy() || m_rng2.CanIncorporateEntropy(); }
+            bool CanIncorporateEntropy() const override
+            {
+                return m_rng1.CanIncorporateEntropy() || m_rng2.CanIncorporateEntropy();
+            }
 
             void IncorporateEntropy(const CryptoPP::byte* input, size_t length) override
             {

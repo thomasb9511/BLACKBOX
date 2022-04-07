@@ -25,11 +25,12 @@ namespace BLACKBOX
     const unsigned int b64  = 8;
     const unsigned int b32  = 4;
 
-    struct sympack {
+    struct sympack
+    {
         CryptoPP::SecByteBlock key;
         CryptoPP::SecByteBlock iv;
     };
 
-    template<typename F, typename T>
+    template <typename F, typename T>
     CryptoPP::SecByteBlock prompt(char bit);
 } // namespace BLACKBOX

@@ -1,15 +1,15 @@
 #include <iostream>
 #include <string.h>
 
+#include <cryptopp/blake2.h>
 #include <cryptopp/cryptlib.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/hkdf.h>
 #include <cryptopp/hmac.h>
-#include <cryptopp/secblock.h>
 #include <cryptopp/keccak.h>
+#include <cryptopp/secblock.h>
 #include <cryptopp/sha3.h>
 #include <cryptopp/whrlpool.h>
-#include <cryptopp/blake2.h>
 
 #include "blackbox.h"
 #include "hash.h"
@@ -17,7 +17,7 @@
 
 namespace BLACKBOX
 {
-    template<typename F, typename T>
+    template <typename F, typename T>
     CryptoPP::SecByteBlock prompt(char bit)
     {
         CryptoPP::SecByteBlock password;

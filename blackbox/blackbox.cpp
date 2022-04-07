@@ -1,10 +1,10 @@
+#include "blackbox.h"
+
 #include <iostream>
 #include <windows.h>
 
 #include <cryptopp/cryptlib.h>
 #include <cryptopp/secblock.h>
-
-#include "blackbox.h"
 
 void SetStdinEcho(bool enable)
 {

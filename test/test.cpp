@@ -3,45 +3,44 @@
 
 #include <iostream>
 
-#include <cryptopp/cryptlib.h>
-#include <cryptopp/secblock.h>
-#include <cryptopp/filters.h>
-#include <cryptopp/files.h>
-
+#include <cryptopp/3way.h>
 #include <cryptopp/aes.h>
-#include <cryptopp/serpent.h>
+#include <cryptopp/aria.h>
 #include <cryptopp/blowfish.h>
-#include <cryptopp/twofish.h>
-#include <cryptopp/shacal2.h>
 #include <cryptopp/camellia.h>
+#include <cryptopp/cast.h>
+#include <cryptopp/cham.h>
+#include <cryptopp/cryptlib.h>
+#include <cryptopp/des.h>
+#include <cryptopp/files.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/gost.h>
+#include <cryptopp/hight.h>
 #include <cryptopp/idea.h>
+#include <cryptopp/lea.h>
+#include <cryptopp/mars.h>
+#include <cryptopp/rc2.h>
+#include <cryptopp/rc5.h>
+#include <cryptopp/rc6.h>
+#include <cryptopp/safer.h>
+#include <cryptopp/secblock.h>
+#include <cryptopp/seed.h>
+#include <cryptopp/serpent.h>
+#include <cryptopp/shacal2.h>
+#include <cryptopp/shark.h>
+#include <cryptopp/simeck.h>
+#include <cryptopp/simon.h>
 #include <cryptopp/skipjack.h>
 #include <cryptopp/speck.h>
-#include <cryptopp/simon.h>
-#include <cryptopp/simeck.h>
-#include <cryptopp/seed.h>
-#include <cryptopp/rc6.h>
-#include <cryptopp/rc5.h>
-#include <cryptopp/rc2.h>
-#include <cryptopp/des.h>
-#include <cryptopp/hight.h>
-#include <cryptopp/lea.h>
-#include <cryptopp/cham.h>
-#include <cryptopp/mars.h>
-#include <cryptopp/aria.h>
-#include <cryptopp/shark.h>
 #include <cryptopp/square.h>
-#include <cryptopp/gost.h>
-#include <cryptopp/safer.h>
-#include <cryptopp/cast.h>
-#include <cryptopp/3way.h>
 #include <cryptopp/tea.h>
+#include <cryptopp/twofish.h>
 
 #include "blackbox.h"
 #include "cipher.h"
 #include "transform.h"
 
-template<typename T>
+template <typename T>
 void c()
 {
     BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
@@ -55,10 +54,12 @@ void c()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::ctr::encrypt<T>(pt, aes_key, aes_iv);
 
-    std::cout << "CTR," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "CTR," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void b()
 {
     BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
@@ -72,10 +73,12 @@ void b()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::cbc::encrypt<T>(pt, aes_key, aes_iv);
 
-    std::cout << "CBC," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "CBC," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void a()
 {
     if (T::BLOCKSIZE != 16)
@@ -92,10 +95,12 @@ void a()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::xts::encrypt<T>(pt, aes_key, aes_iv);
 
-    std::cout << "XTS," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "XTS," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void d()
 {
     BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
@@ -109,10 +114,12 @@ void d()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::cts::encrypt<T>(pt, aes_key, aes_iv);
 
-    std::cout << "CTS," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "CTS," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void e()
 {
     BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
@@ -126,10 +133,12 @@ void e()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::ofb::encrypt<T>(pt, aes_key, aes_iv);
 
-    std::cout << "OFB," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "OFB," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void f()
 {
     BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
@@ -143,10 +152,12 @@ void f()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::cfb::encrypt<T>(pt, aes_key, aes_iv);
 
-    std::cout << "CFB," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "CFB," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void g()
 {
     if (T::BLOCKSIZE != 16)
@@ -163,10 +174,12 @@ void g()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::aead::gcm::encrypt<T>(pt, aes_key, aes_iv, T::BLOCKSIZE);
 
-    std::cout << "GCM," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "GCM," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
-template<typename T>
+template <typename T>
 void h()
 {
     BLACKBOX::secure_string key(T::DEFAULT_KEYLENGTH, 0xAA);
@@ -180,7 +193,9 @@ void h()
 
     CryptoPP::SecByteBlock aes_data = BLACKBOX::cipher::aead::eax::encrypt<T>(pt, aes_key, aes_iv, T::BLOCKSIZE);
 
-    std::cout << "EAX," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' << BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' << BLACKBOX::transform::hex::to(aes_iv) << std::endl;
+    std::cout << "EAX," << typeid(T).name() << ',' << BLACKBOX::transform::hex::to(pt) << ',' <<
+        BLACKBOX::transform::hex::to(aes_data) << ',' << BLACKBOX::transform::hex::to(aes_key) << ',' <<
+        BLACKBOX::transform::hex::to(aes_iv) << std::endl;
 }
 
 int main()
