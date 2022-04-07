@@ -1,19 +1,19 @@
+#include "rng.h"
+
 #include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <string>
 
+#include <cryptopp/aes.h>
 #include <cryptopp/cryptlib.h>
 #include <cryptopp/des.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/integer.h>
 #include <cryptopp/osrng.h>
 #include <cryptopp/rdrand.h>
 
-#include <cryptopp/aes.h>
-#include <cryptopp/filters.h>
-#include <cryptopp/integer.h>
-
 #include "BLACKBOX.h"
-#include "rng.h"
 
 namespace BLACKBOX
 {
@@ -22,11 +22,9 @@ namespace BLACKBOX
         CryptoPP::SecByteBlock randblock(const int bytes)
         {
             CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), seed(CryptoPP::AES::BLOCKSIZE);
-            CryptoPP::OS_GenerateRandomBlock(false, key, key.size());
-            CryptoPP::OS_GenerateRandomBlock(false, seed, seed.size());
-            CryptoPP::X917RNG xAES(
-                new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH),
-                seed, NULLPTR);
+            OS_GenerateRandomBlock(false, key, key.size());
+            OS_GenerateRandomBlock(false, seed, seed.size());
+            CryptoPP::X917RNG xAES(new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH), seed, NULLPTR);
 
             CryptoPP::AutoSeededX917RNG<CryptoPP::DES_EDE3> x917;
             CryptoPP::AutoSeededX917RNG<CryptoPP::AES>      x931;
@@ -50,11 +48,9 @@ namespace BLACKBOX
         std::string randstrng(const int len)
         {
             CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), seed(CryptoPP::AES::BLOCKSIZE);
-            CryptoPP::OS_GenerateRandomBlock(false, key, key.size());
-            CryptoPP::OS_GenerateRandomBlock(false, seed, seed.size());
-            CryptoPP::X917RNG xAES(
-                new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH),
-                seed, NULLPTR);
+            OS_GenerateRandomBlock(false, key, key.size());
+            OS_GenerateRandomBlock(false, seed, seed.size());
+            CryptoPP::X917RNG xAES(new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH), seed, NULLPTR);
 
             CryptoPP::AutoSeededX917RNG<CryptoPP::DES_EDE3> x917;
             CryptoPP::AutoSeededX917RNG<CryptoPP::AES>      x931;
@@ -72,8 +68,7 @@ namespace BLACKBOX
 
             prng.GenerateBlock(Bytes, len);
 
-            std::string randomBytes(reinterpret_cast<const char*>(Bytes.data()),
-                                    Bytes.size());
+            std::string randomBytes(reinterpret_cast<const char*>(Bytes.data()), Bytes.size());
 
             return randomBytes;
         }
@@ -83,11 +78,9 @@ namespace BLACKBOX
             int size8 = bytes * 8;
 
             CryptoPP::SecByteBlock key(CryptoPP::AES::MAX_KEYLENGTH), seed(CryptoPP::AES::BLOCKSIZE);
-            CryptoPP::OS_GenerateRandomBlock(false, key, key.size());
-            CryptoPP::OS_GenerateRandomBlock(false, seed, seed.size());
-            CryptoPP::X917RNG xAES(
-                new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH),
-                seed, NULLPTR);
+            OS_GenerateRandomBlock(false, key, key.size());
+            OS_GenerateRandomBlock(false, seed, seed.size());
+            CryptoPP::X917RNG xAES(new CryptoPP::AES::Encryption(key, CryptoPP::AES::MAX_KEYLENGTH), seed, NULLPTR);
 
             CryptoPP::AutoSeededX917RNG<CryptoPP::DES_EDE3> x917;
             CryptoPP::AutoSeededX917RNG<CryptoPP::AES>      x931;
@@ -103,7 +96,8 @@ namespace BLACKBOX
 
             CryptoPP::Integer x;
 
-            CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)("RandomNumberType", CryptoPP::Integer::PRIME);
+            CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                "RandomNumberType", CryptoPP::Integer::PRIME);
 
             x.GenerateRandom(prng, params);
 
@@ -131,7 +125,7 @@ namespace BLACKBOX
             key = randblock(CryptoPP::AES::DEFAULT_KEYLENGTH);
             iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-            sympack a = { key, iv };
+            sympack a = {key, iv};
 
             return a;
         }
@@ -170,7 +164,8 @@ namespace BLACKBOX
 
                 CryptoPP::Integer x;
 
-                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)("RandomNumberType", CryptoPP::Integer::PRIME);
+                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                    "RandomNumberType", CryptoPP::Integer::PRIME);
 
                 x.GenerateRandom(prng, params);
 
@@ -198,7 +193,7 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace RDRAND
 
@@ -236,7 +231,8 @@ namespace BLACKBOX
 
                 CryptoPP::Integer x;
 
-                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)("RandomNumberType", CryptoPP::Integer::PRIME);
+                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                    "RandomNumberType", CryptoPP::Integer::PRIME);
 
                 x.GenerateRandom(prng, params);
 
@@ -264,7 +260,7 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace RDSEED
 
@@ -302,7 +298,8 @@ namespace BLACKBOX
 
                 CryptoPP::Integer x;
 
-                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)("RandomNumberType", CryptoPP::Integer::PRIME);
+                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                    "RandomNumberType", CryptoPP::Integer::PRIME);
 
                 x.GenerateRandom(prng, params);
 
@@ -330,7 +327,7 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace X931
 
@@ -368,7 +365,8 @@ namespace BLACKBOX
 
                 CryptoPP::Integer x;
 
-                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)("RandomNumberType", CryptoPP::Integer::PRIME);
+                CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters("BitLength", size8)(
+                    "RandomNumberType", CryptoPP::Integer::PRIME);
 
                 x.GenerateRandom(prng, params);
 
@@ -396,8 +394,8 @@ namespace BLACKBOX
                 key = randblock(CryptoPP::AES::MAX_KEYLENGTH);
                 iv  = randblock(CryptoPP::AES::BLOCKSIZE);
 
-                return { key, iv };
+                return {key, iv};
             }
         } // namespace X917
     }     // namespace rng
-} // namespace BLACKBOXj
+}         // namespace BLACKBOXj
